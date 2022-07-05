@@ -1,10 +1,10 @@
-import { ElLoading } from 'element-plus'
+import { Spin } from 'ant-design-vue'
 
 /* 全局请求 loading(服务方式调用) */
-let loadingInstance: ReturnType<typeof ElLoading.service>
+let loadingInstance: ReturnType<typeof Spin.service>
 
 const startLoading = () => {
-  loadingInstance = ElLoading.service({
+  loadingInstance = Spin.service({
     fullscreen: true,
     lock: true,
     text: 'Loading',

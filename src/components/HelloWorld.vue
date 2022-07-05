@@ -1,13 +1,19 @@
 <script setup lang="ts">
 // import { getInfo } from '@/api/common'
-// import type { ILoginInfo } from '@/api/types/common'
+import { loanAnalysisDetail } from '@/service/modules/api'
 
 defineProps<{ msg: string }>()
 const count = ref(0)
 onMounted(() => {
-  // getInfo().then(res => {
-  //   console.log(res)
-  // })
+  const param = {
+    lastTime: '2022-07-05',
+    productId: 'vt_002501',
+    projectId: 'WS0012200001',
+    type: 'PRODUCT'
+  }
+  loanAnalysisDetail(param).then(res => {
+    console.log(res)
+  })
 })
 </script>
 

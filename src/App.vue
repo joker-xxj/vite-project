@@ -16,21 +16,27 @@ const setLanguage = (lang:string) => {
   i18n.locale.value = lang
   globalStore.updateLanguage(lang)
 }
+const loading = globalStore.loading
 </script>
 
 <template>
   <a-config-provider :locale="i18nLocale">
-    <img
-      alt="Vue logo"
-      src="./assets/logo.png"
+    <a-spin
+      :spinning="loading"
+      tip="loading..."
     >
-    <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
-    <a-button @click="setLanguage('zh')">
-      中文
-    </a-button>
-    <a-button @click="setLanguage('en')">
-      English
-    </a-button>
+      <img
+        alt="Vue logo"
+        src="./assets/logo.png"
+      >
+      <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+      <a-button @click="setLanguage('zh')">
+        中文
+      </a-button>
+      <a-button @click="setLanguage('en')">
+        English
+      </a-button>
+    </a-spin>
   </a-config-provider>
 </template>
 

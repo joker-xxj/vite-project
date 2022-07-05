@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv, ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -8,6 +8,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import * as os from 'os'
 import { theme } from './src/utils/setAntTheme'
+import { wrapperEnv } from './src/utils/getEnv'
 
 // 获取本机IP地址
 const getIpAddress = function () {
@@ -30,55 +31,63 @@ const getIpAddress = function () {
 }
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    eslintPlugin({
-      // 配置选项
-      cache: false // 禁用eslint缓存
-    }),
-    vueJsx({
-      // 配置选项
-    }),
-    Components({
-      resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
-      dirs: ['src/components'],
-      extensions: ['vue'],
-      dts: 'src/types/components.d.ts'
-    }),
-    AutoImport({
-      imports: ['vue', 'vue-router', 'vue-i18n'],
-      dts: 'src/types/auto-import.d.ts'
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src')
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "@/styles/variables.scss";'
-      },
-      less: {
-        modifyVars: {
-          ...theme
-        },
-        javascriptEnabled: true
-      }
-    }
-  },
-  server: {
-    proxy: {
-      // 选项写法
-      '/api': {
-        target: 'http://jsonplaceholder.typicode.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
+export default defineConfig(({ mode }:ConfigEnv):UserConfig => {
+  const env = loadEnv(mode, process.cwd())
+  const viteEnv = wrapperEnv(env)
+  return {
+    plugins: [
+      vue(),
+      eslintPlugin({
+        // 配置选项
+        cache: false // 禁用eslint缓存
+      }),
+      vueJsx({
+        // 配置选项
+      }),
+      Components({
+        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+        dirs: ['src/components'],
+        extensions: ['vue'],
+        dts: 'src/types/components.d.ts'
+      }),
+      AutoImport({
+        imports: ['vue', 'vue-router', 'vue-i18n'],
+        dts: 'src/types/auto-import.d.ts'
+      })
+    ],
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src')
       }
     },
-    host: getIpAddress() || '127.0.0.1' || 'localhost',
-    port: 3000
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "@/styles/variables.scss";'
+        },
+        less: {
+          modifyVars: {
+            ...theme
+          },
+          javascriptEnabled: true
+        }
+      }
+    },
+    esbuild: {
+      pure: viteEnv.VITE_DROP_CONSOLE ? ['console.log', 'debugger'] : []
+    },
+    server: {
+      proxy: {
+        // // 选项写法
+        '/ueagle': {
+          target: `http://${getIpAddress()}:80`,
+          changeOrigin: true
+        }
+      },
+      host: getIpAddress() || '127.0.0.1' || 'localhost',
+      port: viteEnv.VITE_PORT,
+      open: viteEnv.VITE_OPEN,
+      cors: true
+    }
   }
 })
