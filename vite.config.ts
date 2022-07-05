@@ -6,6 +6,7 @@ import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import * as os from 'os'
+import { theme } from './src/utils/setAntTheme'
 
 // 获取本机IP地址
 const getIpAddress = function () {
@@ -39,7 +40,10 @@ export default defineConfig({
       // 配置选项
     }),
     Components({
-      resolvers: [AntDesignVueResolver()]
+      resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+      dirs: ['src/components'],
+      extensions: ['vue'],
+      dts: 'src/types/components.d.ts'
     })
   ],
   resolve: {
@@ -51,6 +55,12 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: '@import "@/styles/variables.scss";'
+      },
+      less: {
+        modifyVars: {
+          ...theme
+        },
+        javascriptEnabled: true
       }
     }
   },

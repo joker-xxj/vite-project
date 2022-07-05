@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getInfo } from '@/api/common'
+// import { getInfo } from '@/api/common'
 // import type { ILoginInfo } from '@/api/types/common'
 
 defineProps<{ msg: string }>()
 const count = ref(0)
 onMounted(() => {
-  getInfo().then(res => {
-    console.log(res)
-  })
+  // getInfo().then(res => {
+  //   console.log(res)
+  // })
 })
 </script>
 
 <template>
-  <a-button>233</a-button>
   <h1>{{ msg }}</h1>
 
   <p>
@@ -45,12 +44,12 @@ onMounted(() => {
     >Vue 3 Docs</a>
   </p>
 
-  <button
-    type="button"
+  <a-button
+    type="primary"
     @click="count++"
   >
     count is: {{ count }}
-  </button>
+  </a-button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
