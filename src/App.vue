@@ -1,16 +1,37 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import HelloWorld from '@/components/HelloWorld.vue'
+import { GlobalStore } from './store/index'
+import enUS from 'ant-design-vue/es/locale/en_US'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import { useI18n } from 'vue-i18n'
 
+const i18n = useI18n()
+const globalStore = GlobalStore()
+const i18nLocale = computed((): any => {
+  if (globalStore.language && globalStore.language === 'zh') return zhCN
+  if (globalStore.language === 'en') return enUS
+  return ''
+})
+const setLanguage = (lang:string) => {
+  i18n.locale.value = lang
+  globalStore.updateLanguage(lang)
+}
 </script>
 
 <template>
-  <img
-    alt="Vue logo"
-    src="./assets/logo.png"
-  >
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <a-config-provider :locale="i18nLocale">
+    <img
+      alt="Vue logo"
+      src="./assets/logo.png"
+    >
+    <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+    <a-button @click="setLanguage('zh')">
+      中文
+    </a-button>
+    <a-button @click="setLanguage('en')">
+      English
+    </a-button>
+  </a-config-provider>
 </template>
 
 <style>

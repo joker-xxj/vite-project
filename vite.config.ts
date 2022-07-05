@@ -4,6 +4,7 @@ import eslintPlugin from 'vite-plugin-eslint'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import * as os from 'os'
 import { theme } from './src/utils/setAntTheme'
@@ -44,11 +45,15 @@ export default defineConfig({
       dirs: ['src/components'],
       extensions: ['vue'],
       dts: 'src/types/components.d.ts'
+    }),
+    AutoImport({
+      imports: ['vue', 'vue-router', 'vue-i18n'],
+      dts: 'src/types/auto-import.d.ts'
     })
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': resolve(__dirname, './src')
     }
   },
   css: {

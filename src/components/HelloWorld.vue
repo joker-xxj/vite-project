@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 // import { getInfo } from '@/api/common'
 // import type { ILoginInfo } from '@/api/types/common'
 
@@ -14,7 +13,10 @@ onMounted(() => {
 
 <template>
   <h1>{{ msg }}</h1>
-
+  <a-date-picker
+    show-time
+    placeholder="Select Time"
+  />
   <p>
     Recommended IDE setup:
     <a
