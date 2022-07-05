@@ -8,8 +8,6 @@ import { GlobalStore } from '@/store/index'
 import router from '@/router'
 
 // const axiosCanceler = new AxiosCanceler()
-console.log(import.meta.env)
-
 const config = {
   // 默认地址请求地址，可在 .env 开头文件中修改
   baseURL: import.meta.env.VITE_API_BASEURL as string,

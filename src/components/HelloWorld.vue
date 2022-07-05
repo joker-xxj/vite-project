@@ -1,6 +1,10 @@
 <script setup lang="ts">
 // import { getInfo } from '@/api/common'
-import { loanAnalysisDetail } from '@/service/modules/api'
+// import { loanAnalysisDetail } from '@/service/modules/api'
+import { getCurrentInstance } from 'vue'
+
+const currentInstance = getCurrentInstance()
+const { $http } = currentInstance.appContext.config.globalProperties
 
 defineProps<{ msg: string }>()
 const count = ref(0)
@@ -11,7 +15,7 @@ onMounted(() => {
     projectId: 'WS0012200001',
     type: 'PRODUCT'
   }
-  loanAnalysisDetail(param).then(res => {
+  $http.loanAnalysisDetail(param).then(res => {
     console.log(res)
   })
 })
