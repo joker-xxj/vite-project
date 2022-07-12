@@ -21,6 +21,7 @@ const prop = defineProps({
     default: () => ({})
   }
 })
+
 const isSeriesEmpty = computed(() => isEmpty(prop.seriesData.xAxis.data))
 
 /* 声明echarts实例 */
@@ -37,18 +38,28 @@ const dataScreen: ChartProps = reactive({
 })
 const lineBar = ref<ChartExpose>()
 
-let seriesOption = merge(
-  {},
-  BASIC_OPTION,
-  { color: COLOR_ARRAY },
-  prop.seriesData,
-  prop.extraOption
-)
+const seriesOption = () => {
+  return merge(
+    {},
+    BASIC_OPTION,
+    { color: COLOR_ARRAY },
+    prop.seriesData,
+    prop.extraOption
+  )
+}
 
 /* 初始化 echarts */
 const initCharts = (): void => {
-  dataScreen.chart = lineBar.value?.initChart(seriesOption) as ECharts
+  dataScreen.chart = lineBar.value?.initChart(seriesOption()) as ECharts
 }
+
+const updateCharts = () => {
+  dataScreen.chart?.setOption(seriesOption(), true)
+}
+watch(prop.seriesData, () => {
+  updateCharts()
+}, { immediate: true })
+
 onMounted(() => {
   /* 初始化echarts */
   initCharts()
@@ -59,9 +70,7 @@ onMounted(() => {
 /* 浏览器监听 resize 事件 */
 const resize = () => {
   // 使用了 scale 的echarts其实不需要需要重新计算缩放比例
-  Object.values(dataScreen).forEach(chart => {
-    chart && chart.resize()
-  })
+  dataScreen.chart?.resize()
 }
 
 /* 销毁时触发 */

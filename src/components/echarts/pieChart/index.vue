@@ -36,21 +36,32 @@ const dataScreen: ChartProps = reactive({
 })
 const pie = ref<ChartExpose>()
 
-let pieData = merge(
-  {},
-  BASIC_OPTION,
-  { color: COLOR_ARRAY },
-  {
-    series: [{
-      data: prop.seriesData
-    }]
-  },
-  prop.extraOption
-)
+const pieData = () => {
+  return merge(
+    {},
+    BASIC_OPTION,
+    { color: COLOR_ARRAY },
+    {
+      series: [{
+        data: prop.seriesData
+      }]
+    },
+    prop.extraOption
+  )
+}
+
 /* 初始化 echarts */
 const initCharts = (): void => {
-  dataScreen.chart = pie.value?.initChart(pieData) as ECharts
+  dataScreen.chart = pie.value?.initChart(pieData()) as ECharts
 }
+
+const updateCharts = () => {
+  dataScreen.chart?.setOption(pieData(), true)
+}
+watch(prop.seriesData, () => {
+  updateCharts()
+}, { immediate: true })
+
 onMounted(() => {
   /* 初始化echarts */
   initCharts()

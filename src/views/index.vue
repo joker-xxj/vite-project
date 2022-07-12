@@ -39,7 +39,7 @@ let barSeries = reactive({
   series: [{
     data: [150, 230, 224, 218, 135, 147, 260],
     name: '人数',
-    type: 'bar'
+    type: 'line'
   }]
 })
 let extraOption = reactive({
