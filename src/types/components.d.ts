@@ -9,9 +9,13 @@ declare module '@vue/runtime-core' {
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADatePicker: typeof import('ant-design-vue/es')['DatePicker']
     ASpin: typeof import('ant-design-vue/es')['Spin']
+    BlankPage: typeof import('./../components/blank-page.vue')['default']
     HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
+    LineBarChart: typeof import('./../components/echarts/lineBarChart/index.vue')['default']
+    PieChart: typeof import('./../components/echarts/pieChart/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgIcon: typeof import('./../components/svg-icon.vue')['default']
   }
 }
 

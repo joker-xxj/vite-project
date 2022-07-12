@@ -29,6 +29,7 @@ class RequestHttp {
     this.service.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         const globalStore = GlobalStore()
+
         globalStore.setLoading(true)
         // const token: string = globalStore.token
         // return { ...config, headers: { 'x-access-token': token } }

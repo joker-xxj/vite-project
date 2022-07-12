@@ -11,7 +11,7 @@ export const GlobalStore = defineStore({
   state: (): GlobalState => ({
     token: '',
     loading: false,
-    language: ''
+    language: 'zh'
   }),
   getters: {},
   actions: {

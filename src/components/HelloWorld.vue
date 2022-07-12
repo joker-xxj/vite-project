@@ -1,87 +1,69 @@
 <script setup lang="ts">
-// import { getInfo } from '@/api/common'
-// import { loanAnalysisDetail } from '@/service/modules/api'
-import { getCurrentInstance } from 'vue'
+import { GlobalStore } from '@/store/index'
+import { useI18n } from 'vue-i18n'
+const globalStore = GlobalStore()
+const i18n = useI18n()
+const setLanguage = (lang:string) => {
+  i18n.locale.value = lang
+  globalStore.updateLanguage(lang)
+}
+// const currentInstance = getCurrentInstance()
+// const { $http } = currentInstance?.appContext.config.globalProperties
+// const param = {
+//   lastTime: '2022-07-05',
+//   productId: 'vt_002501',
+//   projectId: 'WS0012200001',
+//   type: 'PRODUCT'
+// }
 
-const currentInstance = getCurrentInstance()
-const { $http } = currentInstance.appContext.config.globalProperties
-
-defineProps<{ msg: string }>()
-const count = ref(0)
-onMounted(() => {
-  const param = {
-    lastTime: '2022-07-05',
-    productId: 'vt_002501',
-    projectId: 'WS0012200001',
-    type: 'PRODUCT'
+const prop = defineProps({
+  msg: {
+    type: String,
+    default: ''
   }
-  $http.loanAnalysisDetail(param).then(res => {
-    console.log(res)
-  })
+})
+
+onMounted(() => {
+  // $http.loanAnalysisDetail(param).then(res => {
+  //   console.log(res)
+  // })
 })
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <img
+    alt="Vue logo"
+    src="@/assets/imgs/logo.png"
+  >
+  <a-button @click="setLanguage('zh')">
+    中文
+  </a-button>
+  <a-button @click="setLanguage('en')">
+    English
+  </a-button>
+  <h1>{{ prop.msg }}</h1>
+  <h1>{{ $t('home.welcome') }}</h1>
   <a-date-picker
     show-time
     placeholder="Select Time"
   />
-  <p>
-    Recommended IDE setup:
-    <a
-      href="https://code.visualstudio.com/"
-      target="_blank"
-    >VS Code</a>
-    +
-    <a
-      href="https://github.com/johnsoncodehk/volar"
-      target="_blank"
-    >Volar</a>
-  </p>
-
-  <p>See <code>README.md</code> for more information.</p>
-
-  <p>
-    <a
-      href="https://vitejs.dev/guide/features.html"
-      target="_blank"
-    >
-      Vite Docs
-    </a>
-    |
-    <a
-      href="https://v3.vuejs.org/"
-      target="_blank"
-    >Vue 3 Docs</a>
-  </p>
-
-  <a-button
-    type="primary"
-    @click="count++"
-  >
-    count is: {{ count }}
+  <a-button type="primary">
+    <router-link to="/index">跳转</router-link>
   </a-button>
   <p>
     Edit
     <code>components/HelloWorld.vue</code> to test hot module replacement.
   </p>
+
 </template>
 
-<style lang="scss" scoped>
-a {
-  color: $color;
+<style lang="less" scoped>
+p {
+  color: @color;
 }
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
+h1, h2 {
+  font-weight: normal;
 }
 
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
 </style>

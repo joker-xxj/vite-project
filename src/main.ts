@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router/index'
 import pinia from './store/index'
 import https from '@/service'
-import './styles/index.scss'
+import './assets/styles/index.less'
 import I18n from '@/language/index'
 
 const app = createApp(App)
