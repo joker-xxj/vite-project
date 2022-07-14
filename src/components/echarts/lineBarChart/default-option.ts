@@ -1,4 +1,6 @@
-const BASIC_OPTION = {
+import { EChartsOption } from 'echarts'
+
+const BASIC_OPTION:EChartsOption = {
   title: {
     text: '',
     subtext: '',
@@ -30,21 +32,22 @@ const BASIC_OPTION = {
   },
   series: [{
     data: [],
-    type: 'line',
+    type: 'bar',
     barWidth: 20,
     label: {
       color: '#E3E8FA',
       show: false
     }
-  }],
-  backgroundColor: 'transparent'
+  }]
+  // backgroundColor: 'transparent'
 }
 
-const COLOR_ARRAY = [
-  { background: 'rgba(63,164,255,0.15)', border: '#3FA4FE' },
-  { background: 'rgba(255,202,129,0.15)', border: '#FFCD7A' },
-  { background: 'rgba(255,89,123,0.15)', border: '#B14966' }
-]
+// const COLOR_ARRAY = [
+//   { background: 'rgba(63,164,255,0.15)', border: '#3FA4FE' },
+//   { background: 'rgba(255,202,129,0.15)', border: '#FFCD7A' },
+//   { background: 'rgba(255,89,123,0.15)', border: '#B14966' }
+// ]
+const COLOR_ARRAY = ['#fe883a', '#2d90d1', '#f75981', '#90e2a9']
 export {
   BASIC_OPTION,
   COLOR_ARRAY

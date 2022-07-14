@@ -5,10 +5,9 @@
 <script setup lang="ts">
 import lineBarChart from './line-bar-chart.vue'
 import blankPage from '@/components/blank-page.vue'
-import { ECharts } from 'echarts'
-import { BASIC_OPTION } from './default-option'
-import { COLOR_ARRAY } from '../color'
-import { isEmpty, merge } from 'lodash'
+import { ECharts, EChartsOption } from 'echarts'
+import { BASIC_OPTION, COLOR_ARRAY } from './default-option'
+import { isEmpty } from 'lodash'
 
 const prop = defineProps({
   seriesData: {
@@ -38,14 +37,13 @@ const dataScreen: ChartProps = reactive({
 })
 const lineBar = ref<ChartExpose>()
 
-const seriesOption = () => {
-  return merge(
-    {},
-    BASIC_OPTION,
-    { color: COLOR_ARRAY },
-    prop.seriesData,
-    prop.extraOption
-  )
+const seriesOption = ():EChartsOption => {
+  return {
+    ...BASIC_OPTION,
+    color: COLOR_ARRAY,
+    ...prop.seriesData,
+    ...prop.extraOption
+  }
 }
 
 /* 初始化 echarts */
