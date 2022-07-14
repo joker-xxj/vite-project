@@ -4,16 +4,18 @@ import enUS from 'ant-design-vue/es/locale/en_US'
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 
 const globalStore = GlobalStore()
+const loading = globalStore.loading
 const locale = computed((): any => {
   return globalStore.language === 'en' ? enUS : zhCN
 })
 const i18n = useI18n()
 watch(locale, val => {
-  console.log(val)
   i18n.locale.value = val.locale
 })
 
-const loading = globalStore.loading
+onBeforeMount(() => {
+  i18n.locale.value = globalStore.language
+})
 </script>
 
 <template>
