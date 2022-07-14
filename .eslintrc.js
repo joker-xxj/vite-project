@@ -13,7 +13,8 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-strongly-recommended',
     'standard',
-    'vue-global-api'
+    'vue-global-api',
+    './.eslintrc-auto-import.json'
   ],
   parserOptions: {
     ecmaVersion: 'latest',

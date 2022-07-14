@@ -3,26 +3,28 @@
     <div class="item-right">
       <div class="echarts-title">Gitee / GitHub 访问量占比</div>
       <div class="book-echarts">
-        <Pie :seriesData="pieData" />
+        <PieChart :seriesData="pieData" />
       </div>
     </div>
     <div class="item-right">
       <div class="echarts-title">数据来源</div>
       <div class="book-echarts">
-        <line-bar-chart :seriesData="barSeries" :extra-option="extraOption" />
+        <LineBarChart :seriesData="barSeries" :extra-option="extraOption" />
       </div>
     </div>
 
   </div>
-  <a-button @click="test" type="primary">
+  <svg-icon icon-name="echartEmpty" />
+  <pause-circle-outlined />
+  <pic-center-outlined />
+  <plus-circle-outlined />
+  <a-button @click="switchChart" type="primary">
     切换
   </a-button>
+
 </template>
 
 <script setup lang="ts">
-import Pie from '@/components/echarts/pieChart/index.vue'
-import lineBarChart from '@/components/echarts/lineBarChart/index.vue'
-
 let pieData = reactive([
   { value: 5000, name: 'Gitee 访问量' },
   { value: 5000, name: 'GitHub 访问量' },
@@ -58,9 +60,9 @@ let extraOption = reactive({
 })
 const isLine = ref(false)
 
-const test = () => {
+const switchChart = () => {
   isLine.value = !isLine.value
-  barSeries.series[0].type = isLine.value ? 'line' : 'bar'
+  barSeries.series[0].type = isLine.value ? 'bar' : 'line'
 }
 </script>
 

@@ -1,4 +1,3 @@
-import { defineStore, createPinia } from 'pinia'
 import { GlobalState } from './interface'
 import piniaPersistConfig from '@/config/piniaPersist'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
@@ -11,7 +10,7 @@ export const GlobalStore = defineStore({
   state: (): GlobalState => ({
     token: '',
     loading: false,
-    language: 'zh'
+    language: 'zh-cn'
   }),
   getters: {},
   actions: {

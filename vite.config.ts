@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import eslintPlugin from 'vite-plugin-eslint'
 import path, { resolve } from 'path'
 import Components from 'unplugin-vue-components/vite'
 
@@ -39,6 +40,11 @@ export default defineConfig(({ mode }:ConfigEnv):UserConfig => {
   return {
     plugins: [
       vue(),
+      eslintPlugin({
+        // 配置选项
+        cache: false // 禁用eslint缓存
+      }),
+
       vueJsx({
         // 配置选项
       }),

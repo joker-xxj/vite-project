@@ -1,5 +1,7 @@
 export default {
   home: {
-    welcome: 'Welcome'
+    welcome: 'Welcome',
+    Month: 'Month',
+    Year: 'Year'
   }
 }

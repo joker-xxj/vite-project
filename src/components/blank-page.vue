@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import svgIcon from './svg-icon.vue'
 </script>
 
 <style lang="less" scoped>
